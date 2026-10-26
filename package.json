@@ -1,14 +1,14 @@
 {
-"name": "ai-study-buddy",
-"version": "1.0.0",
-"description": "An AI-powered study assistant",
-"main": "server.js",
-"scripts": {
-"start": "node server.js"
-},
-"dependencies": {
-"cors": "^2.8.6",
-"dotenv": "^16.4.7",
-"express": "^4.21.2"
-}
+  "name": "ai-study-buddy",
+  "version": "1.0.0",
+  "description": "A beginner-friendly AI Study Buddy web app",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  }
 }

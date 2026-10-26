@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-console.log("ENV file loaded:", Boolean(process.env.OPENAI_API_KEY));
+console.log("Gemini API configured:", Boolean(process.env.GEMINI_API_KEY));
 
 const express = require("express");
 const cors = require("cors");
@@ -31,38 +31,49 @@ app.post("/api/study", async (req, res) => {
   if (text.length > 12000) {
     return res.status(400).json({ error: "Please keep your input under 12,000 characters." });
   }
-  if (!process.env.OPENAI_API_KEY) {
+  if (!process.env.GEMINI_API_KEY) {
     return res.status(503).json({
       error: "AI is not connected yet. Add your API key to a .env file, then restart the server. You can still explore the demo UI."
     });
   }
 
   try {
-    const response = await fetch("https://api.openai.com/v1/responses", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`,
-        "Content-Type": "application/json"
+  const response = await fetch(
+  "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent",
+  {
+    method: "POST",
+    headers: {
+      "x-goog-api-key": process.env.GEMINI_API_KEY,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      systemInstruction: {
+        parts: [{ text: prompts[mode] }]
       },
-      body: JSON.stringify({
-        model: "gpt-4.1-mini",
-        instructions: prompts[mode],
-        input: text.trim()
-      })
-    });
+      contents: [
+        {
+          role: "user",
+          parts: [{ text: text.trim() }]
+        }
+      ]
+    })
+  }
+);
 
-    const data = await response.json();
-    if (!response.ok) {
-      const message = data?.error?.message || "The AI request failed. Please try again.";
-      return res.status(response.status).json({ error: message });
-    }
+const data = await response.json();
 
-    const answer = (data.output || [])
-      .flatMap(item => item.content || [])
-      .filter(part => part.type === "output_text")
-      .map(part => part.text)
-      .join("\n")
-      .trim();
+if (!response.ok) {
+  console.error("Gemini API error:", response.status, data);
+  const message =
+    data?.error?.message || "The AI request failed. Please try again.";
+
+  return res.status(response.status).json({ error: message });
+}
+
+const answer = (data.candidates?.[0]?.content?.parts || [])
+  .map(part => part.text || "")
+  .join("\n")
+  .trim();
 
     if (!answer) {
       return res.status(502).json({ error: "The AI returned an empty answer. Please try again." });
