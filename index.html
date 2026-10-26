@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AI Study Buddy helps students understand doubts, summarize notes, and practice quizzes.">
+  <title>AI Study Buddy — Learn smarter</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#" aria-label="AI Study Buddy home">
+        <span class="brand-mark">✦</span>
+        <span>study<span class="brand-light">buddy</span></span>
+      </a>
+
+      <div class="side-label">WORKSPACE</div>
+      <button class="nav-item active" data-mode="doubt"><span class="nav-icon">✧</span> Ask AI</button>
+      <button class="nav-item" data-mode="summary"><span class="nav-icon">▤</span> Notes Summarizer</button>
+      <button class="nav-item" data-mode="quiz"><span class="nav-icon">☷</span> Quiz Generator</button>
+
+      <div class="sidebar-bottom">
+        <div class="help-card">
+          <div class="help-icon">✦</div>
+          <strong>Your personal study space</strong>
+          <p>Ask questions, revise faster, and practice a little every day.</p>
+        </div>
+        <div class="profile">
+          <div class="avatar">S</div>
+          <div><strong>Student</strong><span>Study session</span></div>
+          <span class="profile-dots">•••</span>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="mobile-menu" id="menuButton" aria-label="Open menu">☰</button>
+        <div class="breadcrumb">Workspace <span>/</span> <strong id="breadcrumbMode">Ask AI</strong></div>
+        <div class="top-right"><span class="status-dot"></span><span>Study mode</span><div class="top-avatar">S</div></div>
+      </header>
+
+      <section class="content">
+        <div class="welcome-row">
+          <div>
+            <div class="eyebrow"><span class="sparkle">✦</span> YOUR LEARNING COMPANION</div>
+            <h1 id="pageTitle">Learn smarter,<br><span>not harder.</span></h1>
+            <p class="subtitle" id="pageSubtitle">Your personal AI study partner is ready. What are we learning today?</p>
+          </div>
+          <div class="hero-art" aria-hidden="true">
+            <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+            <div class="book book-back"></div><div class="book book-front"><span>✦</span><i></i><i></i><i></i></div>
+            <div class="floating-star star-one">✦</div><div class="floating-star star-two">✧</div>
+            <div class="floating-pill">LEARN <span>↗</span></div>
+          </div>
+        </div>
+
+        <div class="section-heading">
+          <div><h2>What can I help you with?</h2><p>Choose a tool to get started</p></div>
+          <span class="three-dots">•••</span>
+        </div>
+
+        <div class="tool-grid">
+          <button class="tool-card selected" data-mode="doubt">
+            <span class="tool-icon purple">✧</span><span class="tool-arrow">↗</span>
+            <strong>Ask AI</strong><p>Get clear explanations for your toughest questions.</p>
+            <span class="tool-bottom">ASK A QUESTION <span>→</span></span>
+          </button>
+          <button class="tool-card" data-mode="summary">
+            <span class="tool-icon peach">▤</span><span class="tool-arrow">↗</span>
+            <strong>Summarize notes</strong><p>Turn long notes into bite-sized revision points.</p>
+            <span class="tool-bottom">MAKE A SUMMARY <span>→</span></span>
+          </button>
+          <button class="tool-card" data-mode="quiz">
+            <span class="tool-icon mint">☷</span><span class="tool-arrow">↗</span>
+            <strong>Practice quiz</strong><p>Generate MCQs and check what you remember.</p>
+            <span class="tool-bottom">TEST YOURSELF <span>→</span></span>
+          </button>
+        </div>
+
+        <section class="workspace-card">
+          <div class="workspace-heading">
+            <div class="workspace-icon" id="workspaceIcon">✧</div>
+            <div><h2 id="workspaceTitle">Ask your study buddy</h2><p id="workspaceDescription">No question is too small. Let's figure it out together.</p></div>
+            <span class="ai-badge"><span>✦</span> AI POWERED</span>
+          </div>
+          <form id="studyForm">
+            <label for="studyInput" id="inputLabel">YOUR QUESTION</label>
+            <textarea id="studyInput" placeholder="For example: Explain binary search with a simple example..." maxlength="12000" required></textarea>
+            <div class="input-footer"><span id="charCount">0 / 12,000</span><button class="clear-button" type="button" id="clearButton">Clear</button></div>
+            <div class="form-actions"><span class="privacy-note"><span>♧</span> Your input is sent to the AI service when you submit.</span><button class="submit-button" id="submitButton" type="submit"><span id="submitLabel">Get an explanation</span><span>↗</span></button></div>
+          </form>
+          <div class="result-panel" id="resultPanel" hidden>
+            <div class="result-heading"><span class="result-sparkle">✦</span><h3>Your study answer</h3><button id="copyButton" class="copy-button" type="button">Copy answer</button></div>
+            <div id="resultText" class="result-text"></div>
+          </div>
+        </section>
+
+        <div class="bottom-note"><span>✦</span><p><strong>A little progress every day adds up.</strong> Keep asking, keep learning.</p><span class="note-decoration">✧</span></div>
+        <footer>MADE FOR CURIOUS MINDS <span>•</span> AI STUDY BUDDY</footer>
+      </section>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
